@@ -1,0 +1,6 @@
+# Use what the image already has. (Installing curl is also fine; it is a deliberate size
+# and attack-surface trade-off.) Note: http.server answers / not /healthz, so check /.
+FROM python:3.12-slim
+HEALTHCHECK --interval=10s --timeout=3s --retries=3 \
+  CMD ["python", "-c", "import urllib.request as u; u.urlopen('http://127.0.0.1:8000/')"]
+CMD ["python", "-m", "http.server", "8000"]

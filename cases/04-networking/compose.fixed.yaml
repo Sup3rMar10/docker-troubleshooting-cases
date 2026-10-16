@@ -1,0 +1,10 @@
+# Use the service name. Compose puts both services on one user-defined network, where the
+# built-in DNS resolves "server". The server may need a moment to start; a real client retries.
+services:
+  server:
+    image: python:3.12-slim
+    command: ["python", "-m", "http.server", "8000"]
+  client:
+    image: python:3.12-slim
+    command: ["python", "-c", "import urllib.request as u; print(u.urlopen('http://server:8000/').status)"]
+    depends_on: [server]

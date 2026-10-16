@@ -1,0 +1,2 @@
+# Force LF so Windows checkouts do not turn the shebang into "#!/bin/sh\r".
+*.sh text eol=lf

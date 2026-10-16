@@ -1,0 +1,10 @@
+# The client calls the server at "localhost". Inside the client container, localhost is the
+# client itself, so the connection is refused. (Other cause: services on different networks.)
+services:
+  server:
+    image: python:3.12-slim
+    command: ["python", "-m", "http.server", "8000"]
+  client:
+    image: python:3.12-slim
+    command: ["python", "-c", "import urllib.request as u; print(u.urlopen('http://localhost:8000/').status)"]
+    depends_on: [server]
